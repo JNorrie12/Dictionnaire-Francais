@@ -14,7 +14,33 @@ BEGIN
 END;
 $body$											  
 language plpgsql;
- 
+
+CREATE OR REPLACE FUNCTION verbConjugationGen(Verb(10))
+RETURN int AS $$
+DELCARE ending char(2);
+
+DECLARE je char(20);
+DECLARE	tu char(20);
+DECLARE	il char(20);
+DECLARE nous char(20);
+DECLARE	vous char(20);
+DECLARE	ils char(20);
+BEGIN
+		ending = SUBSTRING(Verb, 1, l-2);
+
+		IF ending == 'ir' THEN
+			/**/
+		END IF;  
+	IF ending == 'er' THEN
+			/**/
+		END IF;  
+	IF ending == 're' THEN
+			/**/
+		END IF;  
+
+END;
+$$
+/* 
 CREATE OR REPLACE FUNCTION verbTableRE(Verb char(10))
 RETURNS int									  
 AS
@@ -80,7 +106,7 @@ BEGIN
 	RETURN 0;
 END;
 $body$
-
+*/
 CREATE OR REPLACE FUNCTION addWord(	ID int,	
 									word char(20),	
 									word_type wt,	
