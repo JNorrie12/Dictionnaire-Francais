@@ -4,7 +4,7 @@
 
 import psycopg2
 
-from tools import *
+from verbTools import *
 
 
 class CSQLWrapper:
@@ -28,39 +28,21 @@ class CSQLWrapper:
 		
 		command = "dbname="+dbname+" user="+user+" host="+host +" password="+password+" port="+port +" connect_timeout=10"
 		print(command)
-		self.conn = psycopg2.connect(command)
-		self.cur = self.conn.cursor()
-		self.connected = True
-		#except:
-		#	print("Cannot connect to database")
+		try:
+			self.conn = psycopg2.connect(command)
+			self.cur = self.conn.cursor()
+			self.connected = True
+		except:
+			print("Cannot connect to database")	
 
 
-	def addWord():
-		print("add word")
+	def addWord(self, word, wordType, meaning, **kwargs):
+		if wordType == 'Verb':
+			VerbConjugation(self.conn, self.cur, word, **kwargs)
+
 
 	def searchWord():
 		print("search word")
-
-
-
-def main():
-	SQLWrapper= CSQLWrapper();
-	#SQLWrapper.getInstance()
-	SQLWrapper.connect("Dictionary", "postgres", "localhost", "1234", "5433")
-	SQLWrapper.cur.execute("""SELECT * FROM verbendings""")
-	
-	rows = SQLWrapper.cur.fetchall()
-	
-	for row in rows:
-		print(row[1])
-
-	VerbConjugation(SQLWrapper.conn, SQLWrapper.cur, 'perdre')
-	
-	#SQLWrapper.conn.commit()
-
-if __name__ == '__main__':
-	main()
-
 
 
 
